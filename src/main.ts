@@ -12,7 +12,7 @@ async function run() {
             return;
         }
 
-        const jsonRelativePaths = configuration.JSONS.split(',');
+        const jsonRelativePaths = configuration.JSON.split(',');
 
         const validationResults = await validateJsons(
             configuration.GITHUB_WORKSPACE,

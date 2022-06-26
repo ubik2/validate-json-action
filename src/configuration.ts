@@ -2,8 +2,8 @@ import * as core from '@actions/core';
 
 export enum ConfigKey {
     GITHUB_WORKSPACE = 'GITHUB_WORKSPACE',
-    SCHEMA = 'schema',
-    JSONS = 'json',
+    SCHEMA = 'SCHEMA',
+    JSON = 'JSON',
 }
 
 export type ConfigKeys = keyof typeof ConfigKey;
@@ -23,7 +23,7 @@ export const configMapping: KeyMapping[] = [
         setup: 'ENV',
     },
     { key: ConfigKey.SCHEMA, setup: 'INPUT' },
-    { key: ConfigKey.JSONS, setup: 'INPUT' },
+    { key: ConfigKey.JSON, setup: 'INPUT' },
 ];
 
 export function getConfig(): Config {

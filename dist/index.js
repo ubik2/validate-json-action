@@ -35,8 +35,8 @@ const core = __importStar(__nccwpck_require__(2186));
 var ConfigKey;
 (function (ConfigKey) {
     ConfigKey["GITHUB_WORKSPACE"] = "GITHUB_WORKSPACE";
-    ConfigKey["SCHEMA"] = "schema";
-    ConfigKey["JSONS"] = "json";
+    ConfigKey["SCHEMA"] = "SCHEMA";
+    ConfigKey["JSON"] = "JSON";
 })(ConfigKey = exports.ConfigKey || (exports.ConfigKey = {}));
 exports.configMapping = [
     {
@@ -44,7 +44,7 @@ exports.configMapping = [
         setup: 'ENV',
     },
     { key: ConfigKey.SCHEMA, setup: 'INPUT' },
-    { key: ConfigKey.JSONS, setup: 'INPUT' },
+    { key: ConfigKey.JSON, setup: 'INPUT' },
 ];
 function getConfig() {
     let config = {};
@@ -275,7 +275,7 @@ async function run() {
             core.setFailed('Missing configuration');
             return;
         }
-        const jsonRelativePaths = configuration.JSONS.split(',');
+        const jsonRelativePaths = configuration.JSON.split(',');
         const validationResults = await (0, json_validator_1.validateJsons)(configuration.GITHUB_WORKSPACE, configuration.SCHEMA, jsonRelativePaths);
         const invalidJsons = validationResults.filter(res => !res.valid).map(res => res.filePath);
         core.setOutput('INVALID', invalidJsons.length > 0 ? invalidJsons.join(',') : '');

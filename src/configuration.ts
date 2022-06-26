@@ -2,8 +2,8 @@ import * as core from '@actions/core';
 
 export enum ConfigKey {
     GITHUB_WORKSPACE = 'GITHUB_WORKSPACE',
-    SCHEMA = 'SCHEMA',
-    JSONS = 'JSONS',
+    SCHEMA = 'schema',
+    JSONS = 'json',
 }
 
 export type ConfigKeys = keyof typeof ConfigKey;

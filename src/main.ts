@@ -1,7 +1,6 @@
 import * as core from '@actions/core';
 import { getConfig, verifyConfigValues } from './configuration';
 import { validateJsons } from './json-validator';
-import * as glob from 'glob';
 
 async function run() {
     try {
@@ -13,8 +12,7 @@ async function run() {
             return;
         }
 
-        const jsonRelativePaths = configuration.JSONS.split(',')
-            .reduce((accumulator, currentValue) => accumulator.concat(glob.sync(currentValue)));
+        const jsonRelativePaths = configuration.JSONS.split(',');
 
         const validationResults = await validateJsons(
             configuration.GITHUB_WORKSPACE,
@@ -32,7 +30,7 @@ async function run() {
             core.info(`✅ All files were validated successfully.`);
         }
     } catch (error) {
-        core.setFailed(error.message);
+        core.setFailed((error as Error).message);
     }
 }
 

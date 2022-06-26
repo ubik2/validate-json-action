@@ -26,6 +26,8 @@
     "@types/jest": "^24.0.22",
     "ajv": "^6.10.2",
     "better-ajv-errors": "^0.6.7",
+    "ajv-formats": "^2.1.1",
+    "glob": "^8.0.3",
     "chalk": "^2.4.2",
     "path": "^0.12.7"
   },

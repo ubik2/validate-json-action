@@ -1,4 +1,5 @@
 import Ajv, { AnySchemaObject, ValidateFunction } from 'ajv';
+import addFormats from 'ajv-formats';
 import { InvalidSchemaError, InvalidJsonError } from './errors';
 
 class SchemaValidator {
@@ -7,10 +8,10 @@ class SchemaValidator {
     constructor() {
         this.schemaValidator = new Ajv({
             allErrors: true,
-            validateFormats: false,
             verbose: true,
             loadSchema: this.loadSchema,
         });
+        addFormats(this.schemaValidator);
     }
 
     public instance(): Ajv {

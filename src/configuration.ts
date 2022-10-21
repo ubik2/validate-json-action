@@ -1,61 +1,43 @@
 import * as core from '@actions/core';
 
-export enum ConfigKey {
-    GITHUB_WORKSPACE = 'GITHUB_WORKSPACE',
-    SCHEMA = 'SCHEMA',
-    JSON = 'JSON',
+export const configMapping = {
+  GITHUB_WORKSPACE: 'ENV',
+  SCHEMA: 'INPUT',
+  JSON: 'INPUT',
+};
+
+export class Config {
+  public GITHUB_WORKSPACE: string;
+  public SCHEMA: string;
+  public JSON: string;
+  constructor() {
+    this.GITHUB_WORKSPACE = '';
+    this.SCHEMA = '';
+    this.JSON = '';
+  }
 }
 
-export type ConfigKeys = keyof typeof ConfigKey;
-
-type KeyMapping = {
-    key: ConfigKey;
-    setup: 'ENV' | 'INPUT';
-};
-
-type Config = {
-    [key in ConfigKeys]: string;
-};
-
-export const configMapping: KeyMapping[] = [
-    {
-        key: ConfigKey.GITHUB_WORKSPACE,
-        setup: 'ENV',
-    },
-    { key: ConfigKey.SCHEMA, setup: 'INPUT' },
-    { key: ConfigKey.JSON, setup: 'INPUT' },
-];
-
 export function getConfig(): Config {
-    let config = {};
-    configMapping.forEach(i => {
-        let value: string;
-        switch (i.setup) {
-            case 'ENV':
-                value = <string>process.env[ConfigKey[i.key]];
-                break;
-            case 'INPUT':
-                value = core.getInput(ConfigKey[i.key]);
-                break;
-            default:
-                value = '';
-                break;
-        }
-        core.debug(`${ConfigKey[i.key]}: ${value}`);
-        config[ConfigKey[i.key]] = value;
-    });
-    return config as Config;
+  const config: Config = new Config();
+  config.GITHUB_WORKSPACE = <string>process.env['GITHUB_WORKSPACE'];
+  config.SCHEMA = core.getInput('schema');
+  config.JSON = core.getInput('json');
+  core.debug(`GITHUB_WORKSPACE: ${config.GITHUB_WORKSPACE}`);
+  core.debug(`SCHEMA: ${config.SCHEMA}`);
+  core.debug(`JSON: ${config.JSON}`);
+  return config;
 }
 
 export function verifyConfigValues(config: Config): string[] | undefined {
-    let errors: string[] = [];
-    Object.keys(config).forEach(key => {
-        if (config[key] === '') {
-            const mapping = configMapping.find(i => i.key === key);
-            errors.push(
-                `🚨 Missing ${key} ${mapping!.setup === 'ENV' ? 'environment variable' : mapping!.setup.toLowerCase()}`
-            );
-        }
-    });
-    return errors.length > 0 ? errors : undefined;
+  const errors: string[] = [];
+  if (config.GITHUB_WORKSPACE === '') {
+    errors.push('🚨 Missing GITHUB_WORKSPACE environment variable');
+  }
+  if (config.SCHEMA === '') {
+    errors.push('🚨 Missing schema input');
+  }
+  if (config.JSON === '') {
+    errors.push('🚨 Missing json input');
+  }
+  return errors.length > 0 ? errors : undefined;
 }

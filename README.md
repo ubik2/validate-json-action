@@ -1,7 +1,8 @@
 # Github Action: Validate JSON
+
 A GitHub Action that validates JSON files based on a JSON Schema.
 
-This project uses [`ajv`](https://github.com/epoberezkin/ajv), fast JSON schema validator, to perform the validation. 
+This project uses [`ajv`](https://github.com/epoberezkin/ajv), fast JSON schema validator, to perform the validation.
 
 ## Usage
 
@@ -18,7 +19,7 @@ This project uses [`ajv`](https://github.com/epoberezkin/ajv), fast JSON schema 
 
 ### Example Workflow
 
-An example `.github/workflows/validate.yml` workflow to run JSON validation on the repository: 
+An example `.github/workflows/validate.yml` workflow to run JSON validation on the repository:
 
 ```yaml
 name: Validate JSONs
@@ -31,12 +32,10 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Validate JSON
-        uses: docker://orrosenblatt/validate-json-action:latest
-        env:
-          INPUT_SCHEMA: /path/to/schema.json
-          INPUT_JSONS: /path/to/file.json,/path/to/another/file.json
+        with:
+          schema: /path/to/schema.json
+          json: /path/to/file.json,/path/to/another/file.json
 ```
-
 
 ## TODOs
 
@@ -46,4 +45,4 @@ jobs:
 - [ ] Github workflow screenshots
 - [ ] Support `exclude` & `include` in PRs (JSONs from pattern)
 - [ ] Support `schema` & `jsons` by external reference (from S3/GitHub/etc...)
-- [ ] Support `delimiter` input 
+- [ ] Support `delimiter` input

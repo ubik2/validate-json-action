@@ -9,7 +9,7 @@ This project uses [`ajv`](https://github.com/epoberezkin/ajv), fast JSON schema 
 ### Inputs
 
 - `schema`: Relative file path under the repository of a JSON schema file to validate the other JSON files with. Default is: `'./schema.json'`.
-- `jsons`: One or more relative file paths under the repository (seperated by comma) of the JSON files to validate with the schema provided.
+- `json`: One or more relative file paths under the repository (seperated by comma) of the JSON files to validate with the schema provided.
 
 > Note: `schema` is **required**, otherwise default will be used.
 

@@ -9,13 +9,13 @@ This project uses [`ajv`](https://github.com/epoberezkin/ajv), fast JSON schema 
 ### Inputs
 
 - `schema`: Relative file path under the repository of a JSON schema file to validate the other JSON files with. Default is: `'./schema.json'`.
-- `json`: One or more relative file paths under the repository (seperated by comma) of the JSON files to validate with the schema provided.
+- `json`: One or more relative file paths under the repository (separated by comma) of the JSON files to validate with the schema provided.
 
 > Note: `schema` is **required**, otherwise default will be used.
 
 ### Outputs
 
-- `invalid`: One or more of relative file paths of the invalid JSON files, found in the repository (seperated by comma).
+- `invalid`: One or more of relative file paths of the invalid JSON files, found in the repository (separated by comma).
 
 ### Example Workflow
 
